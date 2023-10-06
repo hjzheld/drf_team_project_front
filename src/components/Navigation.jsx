@@ -7,10 +7,20 @@ const Navigation = () => {
       <header>
         <h1>navi</h1>
         <nav>
-          <Link to="/">Home</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/profile">My Page</Link>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/register">Sign Up</Link>
+            </li>
+            <li>
+              <Link to="/profile">My Page</Link>
+            </li>
+          </ul>
         </nav>
       </header>
       <main>
