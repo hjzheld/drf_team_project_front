@@ -14,7 +14,7 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const [imgFile, setImgFile] = useState();
+  // const [imgFile, setImgFile] = useState();
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
   const [password, setPassword] = useState("");
@@ -43,36 +43,46 @@ const Register = () => {
       return;
     }
 
-    const userData = new FormData();
+    const userData = JSON.stringify({
+      email,
+      password,
+      nickname,
+      mbti,
+      blog,
+    });
 
-    userData.append("profile", imgFile);
-    userData.append("email", email);
-    userData.append("password", password);
-    userData.append("nickname", nickname);
-    userData.append("mbti", mbti);
-    userData.append("blog", blog);
+    const config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://127.0.0.1:8000/user/signup/",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: userData,
+    };
 
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/user/signup/",
-        userData
-      );
-      if (response.status === 201) {
-        console.log("서버 메세지: ", response.data.message);
-        alert("회원가입 완료  로그인 페이지로 이동합니다.");
-        navigate("/login");
-      }
-    } catch (err) {
-      if (!err?.response) {
-        setErrMsg("서버 응답 없음");
-      } else if (err.response.status === 409) {
-        setErrMsg(err.response.data.message);
-      } else if (err.response.status === 400) {
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        if (response.status === 201) {
+          console.log("서버 메세지: ", response.data.message);
+          alert("회원가입 완료  로그인 페이지로 이동합니다.");
+          navigate("/login");
+        }
+      })
+      .catch((err) => {
         console.log(err);
-        setErrMsg(err.response.statusText);
-      }
-      navigate("/register");
-    }
+        if (!err?.response) {
+          setErrMsg("서버 응답 없음");
+        } else if (err.response.status === 409) {
+          setErrMsg(err.response.data.message);
+        } else if (err.response.status === 400) {
+          console.log(err);
+          setErrMsg(err.response.statusText);
+        }
+        navigate("/register");
+      });
   };
 
   // 이메일 유효성 검사
@@ -98,12 +108,12 @@ const Register = () => {
       <Link to="/login">Login</Link>
       <div>배너 이미지</div>
       <form onSubmit={onSubmitSignupHandler}>
-        <input
+        {/* <input
           type="file"
           accept="image/*"
           onChange={(e) => setImgFile(e.target.files[0])}
           required
-        />
+        /> */}
         <input
           type="text"
           placeholder="Enter Email"
