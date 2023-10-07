@@ -15,40 +15,42 @@ const Login = () => {
   // 로그인 버튼 클릭
   const onSubmitLoginHandler = async (e) => {
     e.preventDefault();
-    console.log("email: ", email, "password: ", password);
-    try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/user/api/token/ ",
-        JSON.stringify({
-          email,
-          password,
-        }),
-        {
-          headers: {
-            "content-type": "application/json",
-          },
-          // method: "POST",
-        }
-      );
-      console.log(response);
-      // const responseJson = await response.json();
-      // console.log("responseJson: ", responseJson);
 
-      setEmail("");
-      setPassword("");
-      setSuccess(true);
-    } catch (err) {
-      console.log(err);
-      if (!err?.response) {
-        setErrMsg("서버 응답 없음");
-      } else if (err.response?.status === 400) {
-        setErrMsg("이메일 혹은 패스워드 오류");
-      } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
-      } else {
-        setErrMsg("로그인 실패");
-      }
-    }
+    const loginData = JSON.stringify({
+      email,
+      password,
+    });
+
+    const config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://127.0.0.1:8000/user/api/token/",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: loginData,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        setEmail("");
+        setPassword("");
+        setSuccess(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        if (!err?.response) {
+          setErrMsg("서버 응답 없음");
+        } else if (err.response?.status === 400) {
+          setErrMsg("이메일 혹은 패스워드 오류");
+        } else if (err.response?.status === 401) {
+          setErrMsg("Unauthorized");
+        } else {
+          setErrMsg("로그인 실패");
+        }
+      });
   };
 
   useEffect(() => {
