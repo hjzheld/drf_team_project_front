@@ -1,0 +1,20 @@
+.header-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgb(66, 66, 66);
+  height: 100px;
+}
+.nav-header {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+}
+
+.nav-container {
+  display: flex;
+}
+.nav-item {
+  margin-right: 10px;
+}

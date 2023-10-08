@@ -3,6 +3,11 @@ import axios from "axios";
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+// 디자인
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import "../styles/form.css";
+
 const Login = () => {
   const navigate = useNavigate();
 
@@ -44,9 +49,9 @@ const Login = () => {
         if (!err?.response) {
           setErrMsg("서버 응답 없음");
         } else if (err.response?.status === 400) {
-          setErrMsg("이메일 혹은 패스워드 오류");
+          setErrMsg("이메일 혹은 패스워드 오류입니다.");
         } else if (err.response?.status === 401) {
-          setErrMsg("Unauthorized");
+          setErrMsg("유효하지 않은 계정입니다.");
         } else {
           setErrMsg("로그인 실패");
         }
@@ -69,36 +74,57 @@ const Login = () => {
   return (
     <>
       {success ? (
-        <section>
-          <h1>로그인 성공 메인 페이지로 이동합니다.</h1>
+        <section className="wrap">
+          <h1 className="login-success-message">
+            메인 페이지로 이동 중 입니다...
+          </h1>
         </section>
       ) : (
-        <section>
-          <p>{errMsg}</p>
-          <h1>로그인 페이지</h1>
-          <form onSubmit={onSubmitLoginHandler}>
-            <input
-              type="text"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              required
-            />
-            <input
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              required
-            />
-            <button>로그인</button>
-          </form>
-          <p>
-            계정 없음?
-            <span className="line">
-              <Link to="/register">회원가입</Link>
-            </span>
-          </p>
+        <section className="wrap">
+          <div className="form-container login-container">
+            <div className="img-sample"></div>
+            <div className="form-content login-form">
+              <h1>로그인</h1>
+              <form className="form-items" onSubmit={onSubmitLoginHandler}>
+                <div className="input-wrap">
+                  <input
+                    type="text"
+                    ref={userRef}
+                    autoComplete="off"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    placeholder="Email Address"
+                    required
+                  />
+                  <FontAwesomeIcon className="input-icon" icon={faEnvelope} />
+                </div>
+                <div className="input-wrap">
+                  <input
+                    type="password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    required
+                    placeholder="Password"
+                  />
+                  <FontAwesomeIcon className="input-icon" icon={faLock} />
+                </div>
+
+                <button className="submit-btn" type="submit">
+                  로그인
+                </button>
+              </form>
+              <div className="form-footer login-footer">
+                <p className="err-text">{errMsg}</p>
+                <div className="other-line"></div>
+                <div className="other-wrap">
+                  <span className="other-text">계정이 없으신가요?</span>
+                  <Link className="other-link" to="/register">
+                    회원가입
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
       )}
     </>
