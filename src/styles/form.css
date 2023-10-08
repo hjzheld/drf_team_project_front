@@ -1,0 +1,177 @@
+.wrap {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 25px;
+box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.login-container {
+  flex-direction: column;
+  width: 500px;
+  padding-top: 0;
+}
+
+.img-sample {
+  background: linear-gradient(90deg, rgb(90, 114, 155) 0%, rgb(88, 125, 189) 35%, rgb(48, 79, 134) 100%);
+  width: 500px;
+  height: 650px;
+  margin-right: 20px;
+}
+
+.login-container .img-sample {
+  width: 500px;
+  height: 400px;
+  margin: 0 0 10px 0;
+}
+
+.form-content {
+  width: 450px;
+  height: 650px;
+}
+
+.login-form {
+  height: 350px;
+}
+
+.form-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container h1 {
+  font-weight: bold;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  margin: 15px 0;
+}
+
+.input-wrap {
+  border-bottom: 1px solid rgb(0, 0, 0);
+  min-width: 380px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  margin-bottom: 25px;
+}
+
+.input-wrap input {
+  width: 95%
+}
+
+.option-line {
+  color: #333333;
+  margin: 20px 0 30px;
+  position: relative;
+  border-bottom: 1px solid rgb(197, 197, 197);
+}
+
+.other-line {
+  border-bottom: 1px solid rgb(197, 197, 197);
+}
+.option-text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.input-icon {
+  font-size: 13px;
+}
+
+.submit-btn {
+  color:#fff;
+  background: #333333;
+  padding: 13px 45px;
+  border-radius: 2px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.btn-icon {
+  margin-left: 10px;
+}
+
+/* 폼 하단 */
+.form-footer {
+  padding: 0 20px;
+}
+
+.login-footer {
+  padding: 0 35px;
+}
+
+/* 에러 텍스트 */
+.err-text {
+  color: rgb(196, 0, 0);
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 0 20px;
+}
+
+/* 로그인 텍스트 */
+.other-wrap {
+  padding: 10px 0;
+}
+
+.other-text {
+  margin-right: 8px;
+}
+
+.other-link {
+  font-weight: bold;
+}
+
+/* 로그인 성공 메시지 */
+.login-success-message {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+
+/* -------------- 모바일 반응형 살짝..!! ---------------- */
+@media screen and (max-width: 767px) {
+  .form-container {
+    box-shadow: none;
+    width: 100%;
+    justify-content: center;
+  }
+  .img-sample {
+    display: none;
+  }
+  .form-content {
+    height: auto;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .input-wrap {
+    min-width: 335px;
+  }
+  .other-line {
+    width: 335px;
+  }
+}
