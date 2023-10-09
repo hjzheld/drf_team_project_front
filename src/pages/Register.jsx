@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // 디자인
@@ -13,13 +12,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../styles/form.css";
 
+// js 파일
+import { confirmTestFn, EMAIL_REGEX, PWD_REGEX } from "../js/ConfirmedFn";
+import { postRegister } from "../js/api/register";
+
 const Register = () => {
   console.log("Register 컴포넌트 마운트");
-  // 이메일 검사 정규 표현식
-  const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-  // 영문 숫자 조합 8자리 이상
-  const PWD_REGEX = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
-
   // const emailRef = useRef();
   const errRef = useRef();
 
@@ -43,60 +41,13 @@ const Register = () => {
     e.preventDefault();
 
     // 이메일 / 패스워드 유효성 검사 통과하는지 확인
-    const checkEmail = EMAIL_REGEX.test(email);
-    const checkPWD = PWD_REGEX.test(password);
-
-    if (!checkEmail) {
-      setErrMsg("이메일 양식을 맞춰서 작성하세요.");
+    // 리턴값으로 null을 넘겨받으면 실행 X
+    if (confirmTestFn(email, password, passwordCheck, setErrMsg) === null) {
       return;
-    } else if (!checkPWD) {
-      setErrMsg("비밀번호는 영문, 숫자 조합 8자리 이상을 사용하세요.");
-      return;
-    } else if (password !== passwordCheck) {
-      setErrMsg("비밀번호가 일치하지 않습니다.");
-      return;
+    } else {
+      // 회원가입 요청 api
+      postRegister(email, password, nickname, mbti, blog, navigate, setErrMsg);
     }
-
-    const userData = JSON.stringify({
-      email,
-      password,
-      nickname,
-      mbti,
-      blog,
-    });
-
-    const config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "http://127.0.0.1:8000/user/signup/",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: userData,
-    };
-
-    axios
-      .request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-        if (response.status === 201) {
-          console.log("서버 메세지: ", response.data.message);
-          alert("회원가입 완료  로그인 페이지로 이동합니다.");
-          navigate("/login");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        if (!err?.response) {
-          setErrMsg("서버 응답 없음");
-        } else if (err.response.status === 409) {
-          setErrMsg(err.response.data.message);
-        } else if (err.response.status === 400) {
-          console.log(err);
-          setErrMsg(err.response.statusText);
-        }
-        navigate("/register");
-      });
   };
 
   // 이메일 유효성 검사

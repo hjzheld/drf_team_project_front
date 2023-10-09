@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -8,7 +7,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import "../styles/form.css";
 
+// js 파일
+import { postLogin } from "../js/api/login";
+
 const Login = () => {
+  // 현재 로그인한 상태인지 토큰 값이 있는지로 확인
+  const onLogin = () => {
+    const accessToken = localStorage.getItem("access");
+    if (accessToken) {
+      navigate("/");
+    }
+  };
+
   const navigate = useNavigate();
 
   const userRef = useRef();
@@ -20,67 +30,8 @@ const Login = () => {
   // 로그인 버튼 클릭
   const onSubmitLoginHandler = async (e) => {
     e.preventDefault();
-
-    const loginData = JSON.stringify({
-      email,
-      password,
-    });
-
-    const config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "http://127.0.0.1:8000/user/api/token/",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: loginData,
-    };
-
-    axios
-      .request(config)
-      .then((response) => {
-        //로그인 성공
-        console.log(
-          "JSON.stringify(response.data):",
-          JSON.stringify(response.data)
-        );
-        console.log("response.data.access: ", response.data.access);
-
-        const userAccess = response.data.access;
-        const userRefresh = response.data.refresh;
-
-        localStorage.setItem("access", userAccess);
-        localStorage.setItem("refresh", userRefresh);
-
-        const base64Url = userAccess.split(".")[1];
-        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-        const jsonPayload = decodeURIComponent(
-          atob(base64)
-            .split("")
-            .map(function (c) {
-              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-            })
-            .join("")
-        );
-
-        localStorage.setItem("payload", jsonPayload);
-
-        setEmail("");
-        setPassword("");
-        setSuccess(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        if (!err?.response) {
-          setErrMsg("서버 응답 없음");
-        } else if (err.response?.status === 400) {
-          setErrMsg("이메일 혹은 패스워드 오류입니다.");
-        } else if (err.response?.status === 401) {
-          setErrMsg("유효하지 않은 계정입니다.");
-        } else {
-          setErrMsg("로그인 실패");
-        }
-      });
+    // 로그인 요청 api
+    postLogin(email, password, setEmail, setPassword, setSuccess, setErrMsg);
   };
 
   useEffect(() => {
@@ -95,6 +46,12 @@ const Login = () => {
       }, 1000);
     }
   }, [success]);
+
+  // 현재 로그인 상태인가 확인
+  // 로그인 완료된 유저라면 로그인 버튼이 안보이겠지만 url을 통한 로그인 시도를 차단하기 위함
+  useEffect(() => {
+    onLogin();
+  }, []);
 
   return (
     <>
