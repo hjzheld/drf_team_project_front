@@ -39,7 +39,32 @@ const Login = () => {
     axios
       .request(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
+        //로그인 성공
+        console.log(
+          "JSON.stringify(response.data):",
+          JSON.stringify(response.data)
+        );
+        console.log("response.data.access: ", response.data.access);
+
+        const userAccess = response.data.access;
+        const userRefresh = response.data.refresh;
+
+        localStorage.setItem("access", userAccess);
+        localStorage.setItem("refresh", userRefresh);
+
+        const base64Url = userAccess.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        const jsonPayload = decodeURIComponent(
+          atob(base64)
+            .split("")
+            .map(function (c) {
+              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join("")
+        );
+
+        localStorage.setItem("payload", jsonPayload);
+
         setEmail("");
         setPassword("");
         setSuccess(true);
