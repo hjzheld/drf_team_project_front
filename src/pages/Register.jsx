@@ -13,7 +13,11 @@ import {
 import "../styles/form.css";
 
 // js 파일
-import { confirmTestFn, EMAIL_REGEX, PWD_REGEX } from "../js/ConfirmedFn";
+import {
+  checkIsValidEmailAndPassword,
+  EMAIL_REGEX,
+  PWD_REGEX,
+} from "../js/checkValidEmailPassword";
 import { postRegister } from "../js/api/register";
 
 const Register = () => {
@@ -42,7 +46,9 @@ const Register = () => {
 
     // 이메일 / 패스워드 유효성 검사 통과하는지 확인
     // 리턴값으로 null을 넘겨받으면 실행 X
-    if (confirmTestFn(email, password, passwordCheck, setErrMsg) === null) {
+    if (
+      !checkIsValidEmailAndPassword(email, password, passwordCheck, setErrMsg)
+    ) {
       return;
     } else {
       // 회원가입 요청 api
@@ -84,7 +90,6 @@ const Register = () => {
                 type="text"
                 onChange={(e) => setNickname(e.target.value)}
                 value={nickname}
-                required
                 placeholder="Username"
               />
               <FontAwesomeIcon className="input-icon" icon={faUser} />
@@ -94,7 +99,6 @@ const Register = () => {
                 type="text"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
-                required
                 name="email"
                 placeholder="Email Address"
               />
@@ -105,7 +109,6 @@ const Register = () => {
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
-                required
                 placeholder="Password"
               />
               <FontAwesomeIcon className="input-icon" icon={faLock} />
@@ -115,7 +118,6 @@ const Register = () => {
                 type="password"
                 onChange={(e) => setPasswordCheck(e.target.value)}
                 value={passwordCheck}
-                required
                 placeholder="Confirm Password"
               />
               <FontAwesomeIcon className="input-icon" icon={faLock} />

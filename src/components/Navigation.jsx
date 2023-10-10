@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 // 디자인
 import "../styles/nav.css";
 
 const Navigation = () => {
   const [isLogin, setIsLogin] = useState(false);
+  const [nickname, setNickname] = useState("");
+  const [userId, setUserId] = useState("");
+
+  const navigate = useNavigate();
 
   const clickLoginOutBtnHandler = () => {
     localStorage.clear();
-    console.log("클릭완료");
+    navigate("/");
     setIsLogin(false);
   };
 
@@ -17,14 +21,20 @@ const Navigation = () => {
     const accessToken = localStorage.getItem("access");
     if (accessToken) {
       setIsLogin(true);
+
+      const payload = JSON.parse(localStorage.getItem("payload"));
+      const nickname = payload["nickname"];
+      const userId = payload["user_id"];
+      setUserId(userId);
+      setNickname(nickname);
     }
-  }, [isLogin]);
+  }, [isLogin, nickname]);
 
   return (
     <>
       <header className="header-wrap">
         <div className="nav-header">
-          <Link to="/">홈</Link>
+          <Link to="/">올해 목표는</Link>
           <nav className="nav-wrap">
             <ul className="nav-container">
               {isLogin ? (
@@ -33,7 +43,9 @@ const Navigation = () => {
                     <Link to="/article">글작성</Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/profile">마이페이지</Link>
+                    <Link to={isLogin ? `/profile/:${userId}` : "/login"}>
+                      {isLogin ? nickname : "마이페이지"}
+                    </Link>
                   </li>
                   <li className="nav-item" onClick={clickLoginOutBtnHandler}>
                     로그아웃
