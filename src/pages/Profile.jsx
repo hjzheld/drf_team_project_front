@@ -28,6 +28,14 @@ const Profile = () => {
         {userId}
         계정 {nickname}님 개인 프로필 페이지
       </div>
+      {userArticles.map((article) => {
+        return (
+          <div key={article.pk}>
+            <div>{article.title}</div>
+            <div>{article.contnet}</div>
+          </div>
+        );
+      })}
       <button>프로필 수정</button>
     </div>
   );

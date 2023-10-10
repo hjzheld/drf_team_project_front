@@ -6,7 +6,7 @@ const getUserArticles = (userId, setUserArticles) => {
   const config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: `http://127.0.0.1:8000/articles/${userId}/`,
+    url: `http://127.0.0.1:8000/user/article/${userId}/`,
     headers: {
       "Content-Type": "application/json",
     },

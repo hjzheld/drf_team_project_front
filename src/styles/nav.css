@@ -2,19 +2,99 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid rgb(66, 66, 66);
   height: 100px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 .nav-header {
   width: 100vw;
   display: flex;
   justify-content: space-between;
-  max-width: 1200px;
+  align-items: center;
+  max-width: 1500px;
+}
+.header-logo {
+  font-size: 30px;
+}
+.nav-login_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 10px;
+  position: relative;
+}
+.icon-container:hover .icon-down {
+  color: #333;
+}
+.login-list {
+  position: absolute;
+  top: 55px;
+  left: -120px;
+  background: #fff;
+  width: 200px;
+  height: fit-content;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+.login-list.active{
+  display: flex;
+}
+.login-list_item {
+  padding: 10px;
+  width: 100%;
+}
+.login-list_item:hover {
+  font-weight: bold;
+  background: rgb(224, 224, 224);
+}
+.nav-item {
+  margin-right: 10px;
+}
+.icon-user {
+  color: #6d6d6d;
+  font-size: 42px;
+}
+.icon-down {
+  color: #c4c4c4;
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+
+.login-item {
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  background: #333333;
+}
+.login-item:hover {
+  color: #333;
+  background: #fff;
+  border: 1px solid #333;
+}
+
+.signup-item:hover, .create-item:hover {
+  background: #333;
+  color: #fff;
+}
+
+.signup-item, .create-item {
+  border: 1px solid#333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #333;
+    font-weight: bold;
 }
 
 .nav-container {
   display: flex;
-}
-.nav-item {
-  margin-right: 10px;
 }
