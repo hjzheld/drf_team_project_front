@@ -68,7 +68,7 @@ const Navigation = () => {
                     >
                       <Link
                         className="login-list_item"
-                        to={isLogin ? `/profile/:${userId}` : "/login"}
+                        to={isLogin ? `/profile/user:${nickname}` : "/login"}
                       >
                         <li>내 게시글</li>
                       </Link>

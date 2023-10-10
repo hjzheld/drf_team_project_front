@@ -11,6 +11,7 @@
   justify-content: space-between;
   align-items: center;
   max-width: 1500px;
+  padding: 0 20px;
 }
 .header-logo {
   font-size: 30px;
