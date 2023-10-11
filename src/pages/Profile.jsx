@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 // js api
-import { getUserArticles } from "../js/api/getUserArticles";
+import { getUserArticles } from "../js/api/GET/getUserArticles";
 import { useLocation, useParams } from "react-router-dom";
+import { getUserInfoData } from "../js/api/GET/getUserInfo";
 
 const Profile = () => {
   // url에서 값을 받아오기 위한 hook
@@ -16,6 +17,9 @@ const Profile = () => {
   const [isValidUser, setIsValidUser] = useState(false);
   const [storageUserNickname, setStorageUserNickname] = useState("");
   const [storageUserId, setStorageUserId] = useState("");
+
+  // 개인 유저의 정보를 담을 훅
+  const [userInfo, setUserInfo] = useState({});
 
   // 현재 프로필을 보고 있는 유저가 본인 게시물을 보는지 확인하기 위해 사용
   useEffect(() => {
@@ -39,6 +43,13 @@ const Profile = () => {
     getUserArticles(params.id, setUserArticles);
   }, []);
 
+  // 유저 프로필 조회
+  useEffect(() => {
+    getUserInfoData(clickedUserId, setUserInfo);
+  }, []);
+
+  console.log("userInfo", userInfo);
+
   console.log("isValidUser: ", isValidUser);
   console.log("clickedUserId: ", clickedUserId);
   console.log("clickedUserNickname: ", clickedUserNickname);
@@ -47,7 +58,8 @@ const Profile = () => {
   return (
     <div>
       <div>
-        {params.id}번 계정의 {state}님 개인 프로필 페이지
+        {params.id}번 계정의 {state ? state : storageUserNickname}님 개인 프로필
+        페이지
       </div>
       {userArticles.length === 0 ? (
         <h1>올해 목표를 하나도 만들지 않았어요!</h1>

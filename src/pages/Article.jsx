@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 // api
-import { createArticle } from "../js/api/createArticle";
+import { createArticle } from "../js/api/POST/createArticle";
 import { useNavigate } from "react-router-dom";
 
 // api
-import { getTags } from "../js/api/getTags";
+import { getTags } from "../js/api/GET/getTags";
 
 const Article = () => {
   console.log("Article 컴포넌트 마운트");
@@ -96,6 +96,7 @@ const Article = () => {
               onChange={(e) => {
                 setPicture(e.target.files[0]);
               }}
+              required
             />
             <button type="submit">목표 등록하기</button>
           </div>

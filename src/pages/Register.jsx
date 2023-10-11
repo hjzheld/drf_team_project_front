@@ -18,7 +18,7 @@ import {
   EMAIL_REGEX,
   PWD_REGEX,
 } from "../js/checkValidEmailPassword";
-import { postRegister } from "../js/api/register";
+import { postRegister } from "../js/api/POST/register";
 
 const Register = () => {
   console.log("Register 컴포넌트 마운트");

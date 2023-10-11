@@ -3,14 +3,17 @@
   justify-content: center;
   align-items: center;
   height: 100px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
 .nav-header {
   width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1500px;
+  max-width: calc(100% - 150px);
   padding: 0 20px;
 }
 .header-logo {

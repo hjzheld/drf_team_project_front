@@ -21,6 +21,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background: #F8F9FA;
+}
+
 /* Reapply the pointer cursor for anchor tags */
 a,
 button {

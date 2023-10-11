@@ -8,7 +8,7 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import "../styles/form.css";
 
 // js 파일
-import { postLogin } from "../js/api/login";
+import { postLogin } from "../js/api/POST/login";
 
 const Login = () => {
   // 현재 로그인한 상태인지 토큰 값이 있는지로 확인

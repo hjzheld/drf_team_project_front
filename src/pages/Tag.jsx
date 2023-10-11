@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { createTag } from "../js/api/createTag";
+import { createTag } from "../js/api/POST/createTag";
 import { useNavigate } from "react-router-dom";
 // api
-import { getTags } from "../js/api/getTags";
+import { getTags } from "../js/api/GET/getTags";
 
 const Tag = () => {
   console.log("Tag 컴포넌트 마운트");
