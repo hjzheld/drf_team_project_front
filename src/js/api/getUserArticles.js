@@ -23,7 +23,9 @@ const getUserArticles = (userId, setUserArticles) => {
     .catch((err) => {
       console.log(err);
       if (!err?.response) {
-        console.log(err);
+        console.log(err.response);
+      } else if (err.response?.status === 404) {
+        console.log("게시글이 하나도 없어요");
       }
     });
 };
