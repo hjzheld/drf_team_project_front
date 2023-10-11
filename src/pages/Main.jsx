@@ -83,13 +83,6 @@ const Main = () => {
                     ""
                   )}
                 </div>
-                <div className="main-article_item_imgBox">
-                  <img
-                    className="main-article_item_img"
-                    src={`http://localhost:8000${article.image}`}
-                    alt="게시글 이미지"
-                  />
-                </div>
                 <div className="main-article_item_nicknameAndCreated">
                   <div
                     className="main-article_item_nickname"
@@ -108,6 +101,14 @@ const Main = () => {
                     {article.created_at}
                   </div>
                 </div>
+                <div className="main-article_item_imgBox">
+                  <img
+                    className="main-article_item_img"
+                    src={`http://localhost:8000${article.image}`}
+                    alt="게시글 이미지"
+                  />
+                </div>
+
                 <div className="main-article_item_titleAndContent">
                   <div className="main-article_item_title">{article.title}</div>
                   <div className="main-article_item_content">
