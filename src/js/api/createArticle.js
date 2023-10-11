@@ -1,13 +1,35 @@
 import axios from "axios";
 
-const createArticle = (title, content, tag, navigate, setTitle, setContent) => {
+const createArticle = (
+  title,
+  content,
+  tagNumber,
+  picture,
+  navigate,
+  setTitle,
+  setContent,
+  setTagText,
+  setPicture
+) => {
   const accessToken = localStorage.getItem("access");
 
-  const articleData = JSON.stringify({
-    title,
-    content,
-    tag,
-  });
+  console.log("picture??: ", picture);
+
+  const articleData = new FormData();
+
+  articleData.append("title", title);
+  articleData.append("content", content);
+  articleData.append("tag_id", tagNumber);
+  // articleData.append("image", picture, picture.name);
+
+  // const articleData = {
+  //   title,
+  //   content,
+  //   tag_id_id: tag,
+  //   image: picture,
+  // };
+
+  console.log("tagNumber: ", tagNumber);
 
   const config = {
     method: "post",
@@ -15,7 +37,7 @@ const createArticle = (title, content, tag, navigate, setTitle, setContent) => {
     url: "http://127.0.0.1:8000/articles/",
     headers: {
       Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
     },
     data: articleData,
   };
@@ -26,6 +48,8 @@ const createArticle = (title, content, tag, navigate, setTitle, setContent) => {
       console.log("요청 성공: ", response);
       setTitle("");
       setContent("");
+      setTagText("");
+      setPicture("");
       navigate("/");
     })
     .catch((err) => {

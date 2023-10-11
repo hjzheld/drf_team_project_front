@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const getArticles = (setArticles) => {
+const getTags = (setTags) => {
   const config = {
     method: "GET",
     maxBodyLength: Infinity,
-    url: "http://127.0.0.1:8000/articles/",
+    url: "http://127.0.0.1:8000/tag/",
     headers: {
       "Content-Type": "application/json",
     },
@@ -14,8 +14,8 @@ const getArticles = (setArticles) => {
     .request(config)
     .then((response) => {
       if (response.status === 200) {
-        console.log("articles: ", response.data);
-        setArticles([...response.data]);
+        console.log("tag: ", response.data);
+        setTags([...response.data]);
       }
     })
     .catch((err) => {
@@ -26,4 +26,4 @@ const getArticles = (setArticles) => {
     });
 };
 
-export { getArticles };
+export { getTags };

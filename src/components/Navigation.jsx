@@ -10,6 +10,10 @@ const Navigation = () => {
   const [nickname, setNickname] = useState("");
   const [userId, setUserId] = useState("");
 
+  const [curUserId, setCurUserId] = useState("");
+
+  const param = useParams();
+
   const [activeIcon, setActiveIcon] = useState("false");
 
   const navigate = useNavigate();
@@ -38,6 +42,8 @@ const Navigation = () => {
     }
   }, [isLogin, nickname]);
 
+  console.log("param: ", param);
+
   return (
     <>
       <header className="header-wrap">
@@ -49,8 +55,11 @@ const Navigation = () => {
             <ul className="nav-container">
               {isLogin ? (
                 <div className="nav-login_container">
-                  <Link className="nav-item create-item" to="/article">
+                  <Link className="nav-item create-item" to="/tag">
                     <li>새로운 목표 만들기</li>
+                  </Link>
+                  <Link className="nav-item create-item" to="/article">
+                    <li>목표 계획하기</li>
                   </Link>
                   <div
                     className="icon-container"
@@ -68,7 +77,7 @@ const Navigation = () => {
                     >
                       <Link
                         className="login-list_item"
-                        to={isLogin ? `/profile/user:${nickname}` : "/login"}
+                        to={isLogin ? `/profile/${userId}` : "/login"}
                       >
                         <li>내 게시글</li>
                       </Link>

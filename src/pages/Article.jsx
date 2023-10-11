@@ -4,22 +4,70 @@ import React, { useEffect, useState } from "react";
 import { createArticle } from "../js/api/createArticle";
 import { useNavigate } from "react-router-dom";
 
+// api
+import { getTags } from "../js/api/getTags";
+
 const Article = () => {
   console.log("Article 컴포넌트 마운트");
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [tag, setTag] = useState("");
+  const [tagText, setTagText] = useState("");
+  const [tagNumber, setTagNumber] = useState("");
+  const [picture, setPicture] = useState([]);
+  const [tags, setTags] = useState([]);
 
+  // 목표 게시글 작성하는 함수
   const onClickSendArticleHandler = (e) => {
     e.preventDefault();
-    createArticle(title, content, tag, navigate, setTitle, setContent);
+    createArticle(
+      title,
+      content,
+      tagNumber,
+      picture,
+      navigate,
+      setTitle,
+      setContent,
+      setTagText,
+      setPicture
+    );
+    console.log(picture);
   };
+
+  // 선택한 태그의 텍스트와 매칭되는 번호를 출력하는 함수
+  const getTagNumber = (targetTag, tags) => {
+    for (let i = 1; i <= tags.length; i++) {
+      // console.log("tags[i - 1][i]: ", tags[i - 1][i]);
+      // console.log("targetTag: ", targetTag);
+      if (tags[i - 1][i] === targetTag) {
+        return i;
+      }
+      // console.log(tags[i - 1][i] === targetTag);
+    }
+  };
+
+  const onClickTagHandler = (e) => {
+    setTagText(e.target.innerText);
+    // getTagNumber(e.target.innerText, tags);
+    setTagNumber(getTagNumber(e.target.innerText, tags));
+  };
+
+  useEffect(() => {
+    getTags(setTags);
+  }, []);
 
   return (
     <>
       <div>
+        <h1>태그들 리스트</h1>
+        {tags.map((tag, idx) => {
+          return (
+            <div onClick={onClickTagHandler} key={idx}>
+              {tag[idx + 1]}
+            </div>
+          );
+        })}
         <form onSubmit={onClickSendArticleHandler}>
           <div>
             <input
@@ -32,8 +80,9 @@ const Article = () => {
             <input
               type="text"
               placeholder="태그/카테고리"
-              onChange={(e) => setTag(e.target.value)}
-              value={tag}
+              onChange={(e) => setTagText(e.target.value)}
+              value={tagText}
+              disabled
             />
             <textarea
               type="text"
@@ -41,6 +90,12 @@ const Article = () => {
               onChange={(e) => setContent(e.target.value)}
               value={content}
               required
+            />
+            <input
+              type="file"
+              onChange={(e) => {
+                setPicture(e.target.files[0]);
+              }}
             />
             <button type="submit">목표 등록하기</button>
           </div>
