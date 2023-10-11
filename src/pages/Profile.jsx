@@ -28,15 +28,18 @@ const Profile = () => {
         {userId}
         계정 {nickname}님 개인 프로필 페이지
       </div>
-      {userArticles.map((article) => {
-        return (
-          <div key={article.pk}>
-            <div>{article.title}</div>
-            <div>{article.contnet}</div>
-          </div>
-        );
-      })}
-      <button>프로필 수정</button>
+      {userArticles.length === 0 ? (
+        <h1>올해 목표를 하나도 만들지 않았어요!</h1>
+      ) : (
+        userArticles.map((article) => {
+          return (
+            <div key={article.pk}>
+              <div>{article.title}</div>
+              <div>{article.contnet}</div>
+            </div>
+          );
+        })
+      )}
     </div>
   );
 };

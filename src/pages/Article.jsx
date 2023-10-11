@@ -10,10 +10,11 @@ const Article = () => {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [tag, setTag] = useState("");
 
   const onClickSendArticleHandler = (e) => {
     e.preventDefault();
-    createArticle(title, content, navigate, setTitle, setContent);
+    createArticle(title, content, tag, navigate, setTitle, setContent);
   };
 
   return (
@@ -28,7 +29,12 @@ const Article = () => {
               value={title}
               required
             />
-            <input type="text" placeholder="목표를 설정하세요" />
+            <input
+              type="text"
+              placeholder="태그/카테고리"
+              onChange={(e) => setTag(e.target.value)}
+              value={tag}
+            />
             <textarea
               type="text"
               placeholder="올해 목표를 위한 다짐을 적어보세요!"
@@ -36,12 +42,6 @@ const Article = () => {
               value={content}
               required
             />
-            {/* <input
-            type="text"
-            placeholder="태그/카테고리"
-            onChange={(e) => setTag(e.target.value)}
-            value={tag}
-          /> */}
             <button type="submit">목표 등록하기</button>
           </div>
         </form>

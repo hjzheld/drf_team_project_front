@@ -1,11 +1,12 @@
 import axios from "axios";
 
-const createArticle = (title, content, navigate, setTitle, setContent) => {
+const createArticle = (title, content, tag, navigate, setTitle, setContent) => {
   const accessToken = localStorage.getItem("access");
 
   const articleData = JSON.stringify({
     title,
     content,
+    tag,
   });
 
   const config = {
