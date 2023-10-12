@@ -1,0 +1,14 @@
+.CD {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.year {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.dDay {
+  font-size: 15px;
+}

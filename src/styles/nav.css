@@ -2,11 +2,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
+  height: 60px;
   background: #fff;
   position: sticky;
   top: 0;
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  z-index: 999;
 }
 .nav-header {
   width: 100vw;
@@ -17,7 +18,7 @@
   padding: 0 20px;
 }
 .header-logo {
-  font-size: 30px;
+  font-size: 25px;
 }
 .nav-login_container {
   display: flex;
@@ -57,7 +58,8 @@
 }
 .login-list_item:hover {
   font-weight: bold;
-  background: rgb(224, 224, 224);
+  background: #337fc5;
+  color: #fff;
 }
 .nav-item {
   margin-right: 10px;
@@ -87,12 +89,12 @@
 }
 
 .signup-item:hover, .create-item:hover {
-  background: #333;
+  background: #337fc5;
   color: #fff;
 }
 
 .signup-item, .create-item {
-  border: 1px solid#333;
+  border: 1px solid#bdbdbd;
     padding: 10px 20px;
     border-radius: 5px;
     color: #333;
@@ -101,4 +103,13 @@
 
 .nav-container {
   display: flex;
+}
+
+.navi-profile {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
 }

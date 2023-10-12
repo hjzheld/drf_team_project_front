@@ -13,14 +13,14 @@ const createArticle = (
 ) => {
   const accessToken = localStorage.getItem("access");
 
-  console.log("picture??: ", picture);
+  console.log("tagNumber: ", tagNumber);
 
   const articleData = new FormData();
 
   articleData.append("title", title);
   articleData.append("content", content);
   articleData.append("tag_id", tagNumber);
-  // articleData.append("image", picture, picture.name);
+  articleData.append("image", picture, picture.name);
 
   // const articleData = {
   //   title,

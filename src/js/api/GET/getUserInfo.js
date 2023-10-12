@@ -17,8 +17,8 @@ const getUserInfoData = (userId, setUserInfo) => {
     .request(config)
     .then((response) => {
       if (response.status === 200) {
-        console.log("유저정보: ", response.data);
         setUserInfo({ ...response.data });
+        // return response.data;
       }
     })
     .catch((err) => {

@@ -14,8 +14,8 @@ const getArticles = (setArticles) => {
     .request(config)
     .then((response) => {
       if (response.status === 200) {
-        console.log("articles: ", response.data);
-        setArticles([...response.data]);
+        let reverseData = response.data.reverse();
+        setArticles([...reverseData]);
       }
     })
     .catch((err) => {

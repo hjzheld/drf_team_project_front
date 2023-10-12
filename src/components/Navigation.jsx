@@ -5,12 +5,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import "../styles/nav.css";
 
+// 컴포넌트
+import Countdown from "./Countdown";
+import { getUserInfoData } from "../js/api/GET/getUserInfo";
+
 const Navigation = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [nickname, setNickname] = useState("");
   const [userId, setUserId] = useState("");
-
-  const [curUserId, setCurUserId] = useState("");
+  // 유저 인포
+  const [userInfo, setUserInfo] = useState({});
 
   const param = useParams();
 
@@ -39,10 +43,12 @@ const Navigation = () => {
       const userId = payload["user_id"];
       setUserId(userId);
       setNickname(nickname);
+      console.log("네비아이디: ", userId);
+      getUserInfoData(userId, setUserInfo);
     }
   }, [isLogin, nickname]);
 
-  console.log("param: ", param);
+  console.log("네비 인포: ", userInfo.profile);
 
   return (
     <>
@@ -51,24 +57,37 @@ const Navigation = () => {
           <Link to="/">
             <h1 className="header-logo">올해 목표는</h1>
           </Link>
+          <Countdown />
           <nav className="nav-wrap">
             <ul className="nav-container">
               {isLogin ? (
                 <div className="nav-login_container">
-                  <Link className="nav-item create-item" to="/tag">
+                  <Link className="nav-item create-item" to={`/tag/${userId}`}>
                     <li>새로운 목표 만들기</li>
                   </Link>
-                  <Link className="nav-item create-item" to="/article">
+                  <Link
+                    className="nav-item create-item"
+                    to={`/article/${userId}`}
+                  >
                     <li>목표 계획하기</li>
                   </Link>
                   <div
                     className="icon-container"
                     onClick={clickUserIconHandler}
                   >
-                    <FontAwesomeIcon
-                      className="icon-user"
-                      icon={faCircleUser}
-                    />
+                    {userInfo.profile !==
+                    "/media/uploads/profiles/default_profile.png" ? (
+                      <img
+                        className="navi-profile"
+                        src={`http://localhost:8000${userInfo.profile}`}
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        className="icon-user"
+                        icon={faCircleUser}
+                      />
+                    )}
+
                     <FontAwesomeIcon className="icon-down" icon={faCaretDown} />
                     <ul
                       className={
@@ -81,7 +100,12 @@ const Navigation = () => {
                       >
                         <li>내 게시글</li>
                       </Link>
-                      <li className="login-list_item">프로필 수정</li>
+                      <Link
+                        className="login-list_item"
+                        to={isLogin ? `/profile/edit/${userId}` : "/login"}
+                      >
+                        <li>프로필 수정</li>
+                      </Link>
                       <li
                         className="login-list_item"
                         onClick={clickLoginOutBtnHandler}

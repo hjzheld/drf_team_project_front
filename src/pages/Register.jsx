@@ -21,7 +21,6 @@ import {
 import { postRegister } from "../js/api/POST/register";
 
 const Register = () => {
-  console.log("Register 컴포넌트 마운트");
   // const emailRef = useRef();
   const errRef = useRef();
 
@@ -75,7 +74,12 @@ const Register = () => {
   return (
     <section className="wrap">
       <div className="form-container">
-        <div className="img-sample"></div>
+        <div className="img-sample">
+          <img
+            src="https://cdn.pixabay.com/photo/2016/07/12/14/29/block-1512119_640.jpg"
+            alt=""
+          />
+        </div>
         <div className="form-content">
           <h1>회원가입</h1>
           <form className="form-items" onSubmit={onSubmitSignupHandler}>

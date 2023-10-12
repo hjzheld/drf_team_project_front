@@ -1,9 +1,4 @@
-import axios from "axios";
-
 const onClickUserNicknameHandler = (userID, navigate, nickname) => {
-  console.log("유저 이름을 클릭했습니다");
-  console.log(userID);
-  console.log("nickname: ", nickname);
   navigate(`/profile/${userID}`, { state: nickname });
   // navigate("/register");
   // 모든 유저들의 정보를 가지고 오는 api 만들어달라하기

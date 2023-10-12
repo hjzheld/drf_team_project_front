@@ -1,8 +1,6 @@
 import axios from "axios";
 
 const getUserArticles = (userId, setUserArticles) => {
-  console.log("userId: ", userId);
-
   const config = {
     method: "get",
     maxBodyLength: Infinity,
@@ -16,7 +14,6 @@ const getUserArticles = (userId, setUserArticles) => {
     .request(config)
     .then((response) => {
       if (response.status === 200) {
-        console.log("response: ", response);
         setUserArticles([...response.data]);
       }
     })

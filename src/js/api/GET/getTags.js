@@ -14,7 +14,6 @@ const getTags = (setTags) => {
     .request(config)
     .then((response) => {
       if (response.status === 200) {
-        console.log("tag: ", response.data);
         setTags([...response.data]);
       }
     })

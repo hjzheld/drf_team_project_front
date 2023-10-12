@@ -1,6 +1,6 @@
 import React from "react";
 import { useRef, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // 디자인
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,6 +11,9 @@ import "../styles/form.css";
 import { postLogin } from "../js/api/POST/login";
 
 const Login = () => {
+  // 회원가입 이메일 데이터 가져오기
+  const { state } = useLocation();
+
   // 현재 로그인한 상태인지 토큰 값이 있는지로 확인
   const onLogin = () => {
     const accessToken = localStorage.getItem("access");
@@ -35,6 +38,9 @@ const Login = () => {
   };
 
   useEffect(() => {
+    if (state) {
+      setEmail(state);
+    }
     setErrMsg("");
   }, [email, password]);
 
@@ -43,7 +49,7 @@ const Login = () => {
     if (success) {
       setTimeout(() => {
         navigate("/");
-      }, 1000);
+      }, 500);
     }
   }, [success]);
 
@@ -64,7 +70,12 @@ const Login = () => {
       ) : (
         <section className="wrap">
           <div className="form-container login-container">
-            <div className="img-sample"></div>
+            <div className="img-sample">
+              <img
+                src="https://cdn.pixabay.com/photo/2016/07/12/14/29/block-1512119_640.jpg"
+                alt=""
+              />
+            </div>
             <div className="form-content login-form">
               <h1>로그인</h1>
               <form className="form-items" onSubmit={onSubmitLoginHandler}>

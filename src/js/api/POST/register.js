@@ -33,7 +33,7 @@ const postRegister = (
       if (response.status === 201) {
         console.log("서버 메세지: ", response.data.message);
         alert("회원가입 완료  로그인 페이지로 이동합니다.");
-        navigate("/login");
+        navigate("/login", { state: email });
       }
     })
     .catch((err) => {
